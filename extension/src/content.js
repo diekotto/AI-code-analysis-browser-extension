@@ -1,8 +1,8 @@
-const API_ENDPOINT = 'https://bsv2zn5jsnunrghcenpmpczopm0mzpof.lambda-url.eu-west-3.on.aws/analyze';
+const API_ENDPOINT = 'https://b4fc7aen3ey5xdd36h2jjyv4ny0uhjax.lambda-url.eu-central-1.on.aws/analyze';
 
 function getCodeContent() {
   // Específico para GitHub, pero podemos expandirlo para otros sitios
-  const codeElement = document.querySelector('.blob-code-inner');
+  const codeElement = document.querySelector('#read-only-cursor-text-area');
   return codeElement ? codeElement.textContent : '';
 }
 

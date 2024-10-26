@@ -19,13 +19,17 @@ resource "aws_iam_policy" "bedrock_policy" {
           "bedrock:InvokeModelWithResponseStream"
         ]
         Resource = [
-          "arn:aws:bedrock:eu-west-3::foundation-model/anthropic.claude-3-5-sonnet-20241022-v2:*"
+          "arn:aws:bedrock:eu-central-1::foundation-model/anthropic.claude-3-5-sonnet-20240620-v1*",
+          "arn:aws:bedrock:eu-central-1::foundation-model/anthropic.claude-3-5-sonnet-20241022-v2*",
         ]
       }
     ]
   })
 }
 module "api_lambda" {
+  providers = {
+    aws = aws.bedrock
+  }
   source       = "./modules/lambda"
   description  = "API of Code Analysis Assistant"
   environment  = var.environment

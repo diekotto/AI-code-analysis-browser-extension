@@ -28,19 +28,22 @@ const analyzeCode = async (code) => {
     }
   `;
 
-  const payload = {
-    prompt: `\n\nHuman: ${prompt}\n\nAssistant: Let me analyze that code and provide recommendations in the requested JSON format.`,
-    max_tokens: 1024,
-    temperature: 0.5,
-    anthropic_version: 'bedrock-2023-05-31',
-  };
-
   try {
     const command = new InvokeModelCommand({
-      modelId: 'anthropic.claude-3-5-sonnet-20241022-v2:0',
+      modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
       contentType: 'application/json',
       accept: 'application/json',
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        messages: [
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        max_tokens: 1024,
+        temperature: 0.5,
+        anthropic_version: 'bedrock-2023-05-31',
+      }),
     });
 
     const response = await bedrockClient.send(command);
@@ -56,16 +59,12 @@ const analyzeCode = async (code) => {
   }
 };
 
-const corsHeaders = {
-  'Access-Control-Max-Age': '86400', // 24 horas de cache para el preflight
-};
-
 export const handler = async (event) => {
   // Manejar la petición OPTIONS (preflight)
   if (event.requestContext.http.method === 'OPTIONS') {
     return {
-      statusCode: 204, // No Content
-      headers: corsHeaders,
+      statusCode: 204,
+      'Access-Control-Max-Age': '86400',
     };
   }
 
@@ -75,7 +74,6 @@ export const handler = async (event) => {
       statusCode: 405,
       headers: {
         'Content-Type': 'application/json',
-        ...corsHeaders,
       },
       body: JSON.stringify({
         error: 'Method not allowed',
@@ -84,12 +82,23 @@ export const handler = async (event) => {
   }
 
   try {
+    const body = JSON.parse(event.body);
+    if (!body.code) {
+      return {
+        statusCode: 400,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          error: 'No code provided',
+        }),
+      };
+    }
     const analysis = await analyzeCode(body.code);
     return {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        ...corsHeaders,
       },
       body: JSON.stringify(analysis),
     };
@@ -99,7 +108,6 @@ export const handler = async (event) => {
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
-        ...corsHeaders,
       },
       body: JSON.stringify({
         error: 'Internal server error',

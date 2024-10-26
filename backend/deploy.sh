@@ -8,6 +8,11 @@ YELLOW='\033[1;33m'
 
 # Nombre de la función Lambda
 LAMBDA_FUNCTION_NAME="tuxedo-dev-lmb-api-code-analysis-assistant"
+REGION="eu-central-1"
+
+
+# Set AWS default region
+export AWS_DEFAULT_REGION=$REGION
 
 # Directorio de trabajo
 DIST_DIR="./dist"
