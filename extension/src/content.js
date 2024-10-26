@@ -1,3 +1,5 @@
+const API_ENDPOINT = 'https://bsv2zn5jsnunrghcenpmpczopm0mzpof.lambda-url.eu-west-3.on.aws/';
+
 function getCodeContent() {
   // Específico para GitHub, pero podemos expandirlo para otros sitios
   const codeElement = document.querySelector('.blob-code-inner');
@@ -6,12 +8,12 @@ function getCodeContent() {
 
 async function analyzeCode(code) {
   try {
-    const response = await fetch('https://tu-api-endpoint.com/analyze', {
+    const response = await fetch(API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code })
+      body: JSON.stringify({ code }),
     });
     return await response.json();
   } catch (error) {

@@ -3,17 +3,16 @@
   "name": "Code Analysis Assistant",
   "version": "1.0",
   "description": "AI-powered code analysis and recommendations",
-  "permissions": [
-    "activeTab",
-    "storage"
-  ],
+  "permissions": ["activeTab", "storage"],
   "action": {
     "default_popup": "popup.html"
   },
-  "content_scripts": [{
-    "matches": ["*://*.github.com/*"],
-    "js": ["content.js"]
-  }],
+  "content_scripts": [
+    {
+      "matches": ["*://*.github.com/*"],
+      "js": ["content.js"]
+    }
+  ],
   "background": {
     "service_worker": "background.js"
   }
