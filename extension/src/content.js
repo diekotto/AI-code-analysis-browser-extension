@@ -1,4 +1,4 @@
-const API_ENDPOINT = 'https://bsv2zn5jsnunrghcenpmpczopm0mzpof.lambda-url.eu-west-3.on.aws/';
+const API_ENDPOINT = 'https://bsv2zn5jsnunrghcenpmpczopm0mzpof.lambda-url.eu-west-3.on.aws/analyze';
 
 function getCodeContent() {
   // Específico para GitHub, pero podemos expandirlo para otros sitios
@@ -7,6 +7,7 @@ function getCodeContent() {
 }
 
 async function analyzeCode(code) {
+  console.log('Analyzing code...');
   try {
     const response = await fetch(API_ENDPOINT, {
       method: 'POST',

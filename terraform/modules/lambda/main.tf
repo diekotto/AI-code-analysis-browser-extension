@@ -105,7 +105,7 @@ output "qualified_arn" {
   value = aws_lambda_function.lambda_function.qualified_arn
 }
 
-output "function_url"{
+output "function_url" {
   value = try(aws_lambda_function_url.lambda_function_url[0].function_url, null)
 }
 
@@ -215,8 +215,8 @@ resource "aws_lambda_function_url" "lambda_function_url" {
     allow_credentials = true
     allow_origins     = ["*"]
     allow_methods     = ["*"]
-    allow_headers     = ["date", "keep-alive"]
-    expose_headers    = ["keep-alive", "date"]
+    allow_headers     = ["*"]
+    expose_headers    = ["*"]
     max_age           = 86400
   }
 }
