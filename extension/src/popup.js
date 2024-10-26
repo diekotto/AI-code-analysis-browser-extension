@@ -3,12 +3,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   chrome.tabs.sendMessage(tabs[0].id, { action: 'analyzeCode' }, (response) => {
     const recommendationsDiv = document.getElementById('recommendations');
-
     if (response.error) {
       recommendationsDiv.innerHTML = `<div class="error">${response.error}</div>`;
       return;
     }
-
     // Mostrar recomendaciones
     recommendationsDiv.innerHTML = response.recommendations
       .map(

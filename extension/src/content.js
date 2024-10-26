@@ -7,7 +7,6 @@ function getCodeContent() {
 }
 
 async function analyzeCode(code) {
-  console.log('Analyzing code...');
   try {
     const response = await fetch(API_ENDPOINT, {
       method: 'POST',
@@ -24,11 +23,26 @@ async function analyzeCode(code) {
 }
 
 // Escuchar mensajes del popup o background script
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'analyzeCode') {
-    const code = getCodeContent();
-    const analysis = await analyzeCode(code);
-    sendResponse(analysis);
+    (async () => {
+      try {
+        const code = getCodeContent();
+
+        if (!code) {
+          console.log('No code found');
+          sendResponse({ error: 'No code found on this page' });
+          return;
+        }
+
+        const result = await analyzeCode(code);
+        console.log('Analysis result:', result);
+        sendResponse(result);
+      } catch (error) {
+        console.error('Error:', error);
+        sendResponse({ error: 'Analysis failed: ' + error.message });
+      }
+    })();
+    return true; // Mantener el canal de mensaje abierto
   }
-  return true; // Indica que usaremos sendResponse asincrónicamente
 });
