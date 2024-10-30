@@ -17,6 +17,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.prose pre {
+  margin: 0;
+  padding: 0;
+}
+
+.prose code {
+  font-size: 0.875em;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
