@@ -5,14 +5,8 @@
   "description": "AI-powered code analysis and recommendations",
   "permissions": ["activeTab", "storage","nativeMessaging"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "index.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["https://*.github.com/*"],
-      "js": ["content.js"]
-    }
-  ],
   "background": {
     "service_worker": "background.js"
   }
