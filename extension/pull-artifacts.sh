@@ -11,7 +11,7 @@ EXTENSION_CODE_PATH="./src"
 rm -rf $EXTENSION_CODE_PATH/sidepanel
 
 # Remove the existing Popup build
-rm -rf $EXTENSION_CODE_PATH/popup
+# rm -rf $EXTENSION_CODE_PATH/popup
 
 # Copy the new Sidepanel build content
 cp -r $SIDEPANEL_BUILD_PATH/* $EXTENSION_CODE_PATH
