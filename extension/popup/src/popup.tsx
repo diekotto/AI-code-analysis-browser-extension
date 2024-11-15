@@ -2,29 +2,63 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Sidebar, Code, Swords } from 'lucide-react';
 
-declare const chrome: any;
-
 export default function Popup() {
-  const handleOpenSidebar = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'openSidebar' });
-    });
+  const handleOpenSidebar = async () => {
+    console.log('Attempting to open sidebar...');
+
+    try {
+      // Obtener la ventana actual
+      const [window] = await chrome.windows.getAll({
+        windowTypes: ['normal'],
+        populate: false
+      });
+
+      if (!window?.id) {
+        console.error('No window found');
+        return;
+      }
+
+      // Abrir el panel directamente desde el popup
+      await chrome.sidePanel.open({
+        windowId: window.id
+      });
+      // chrome.runtime.sendMessage({ action: 'openSidebar' }, (response) => {
+      //   // Verificar errores de runtime
+      //   if (chrome.runtime.lastError) {
+      //     console.error('Chrome runtime error:', chrome.runtime.lastError);
+      //     return;
+      //   }
+
+      //   console.log('Received response:', response);
+
+      //   if (response?.success) {
+      //     console.log('Sidebar opened successfully');
+      //   } else {
+      //     console.error('Failed to open sidebar:', {
+      //       error: response?.error,
+      //       details: response?.details,
+      //     });
+      //   }
+      // });
+    } catch (error) {
+      console.error('Error in popup:', error);
+    }
   };
 
   const handleAnalyzeCode = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'analyzeCode' });
-    });
+    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
+    //   chrome.tabs.sendMessage(tabs[0].id, { action: 'analyzeCode' });
+    // });
   };
 
   const handleCodewarCode = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'codewarCode' });
-    });
+    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
+    //   chrome.tabs.sendMessage(tabs[0].id, { action: 'codewarCode' });
+    // });
   };
 
   return (
-    <Card className="w-80 bg-[rgb(31,41,55,0.5)] text-white border-blue-900 overflow-hidden">
+    <Card className="w-80 bg-[rgb(31,41,55)] text-white border-blue-900 overflow-hidden rounded-none">
       <CardHeader className="pb-4 bg-[rgb(17,24,39)]">
         <CardTitle className="text-2xl font-bold text-center text-blue-400">AI Code Assistant</CardTitle>
         <CardDescription className="text-center text-blue-200">Your intelligent coding companion</CardDescription>
