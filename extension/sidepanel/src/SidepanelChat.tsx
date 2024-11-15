@@ -4,8 +4,6 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send, X } from 'lucide-react';
 
-declare const chrome: any;
-
 interface Message {
   text: string;
   sender: 'user' | 'ai';
@@ -29,9 +27,9 @@ export default function SidepanelChat() {
 
   const handleClose = () => {
     // Send message to content script to close sidebar
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'closeSidebar' });
-    });
+    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
+    //   chrome.tabs.sendMessage(tabs[0].id, { action: 'closeSidebar' });
+    // });
   };
 
   useEffect(() => {
@@ -39,16 +37,20 @@ export default function SidepanelChat() {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-full bg-[rgb(17,24,39)] text-white">
-      <div className="flex justify-between items-center p-4 bg-[rgb(31,41,55,0.5)]">
-        <h2 className="text-xl font-bold text-blue-400">AI Code Assistant</h2>
-        <Button variant="ghost" size="icon" onClick={handleClose} className="text-blue-400 hover:text-blue-300">
-          <X className="h-6 w-6" />
-          <span className="sr-only">Close sidebar</span>
-        </Button>
+    <div className="flex flex-col h-screen w-full bg-[rgb(17,24,39)] text-white">
+      <div className="flex-none w-full justify-between items-center p-4 bg-[rgb(31,41,55,0.5)]">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-bold text-blue-400">AI Code Assistant</h2>
+          <Button variant="ghost" size="icon" onClick={handleClose} className="text-blue-400 hover:text-blue-300">
+            <X className="h-6 w-6" />
+            <span className="sr-only">Close sidebar</span>
+          </Button>
+        </div>
       </div>
-      <div className="flex-grow flex flex-col overflow-hidden">
-        <ScrollArea className="flex-grow">
+
+      {/* Scrollable Message Area */}
+      <div className="flex-1 min-h-0">
+        <ScrollArea className="h-full">
           <div className="p-4 space-y-4 min-h-full">
             {messages.length === 0 && (
               <div className="text-center text-gray-500 py-8">No messages yet. Start a conversation!</div>
@@ -66,7 +68,7 @@ export default function SidepanelChat() {
           </div>
         </ScrollArea>
       </div>
-      <div className="p-4 bg-[rgb(31,41,55,0.5)]">
+      <div className="flex-none w-full p-4 bg-[rgb(31,41,55,0.5)]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
