@@ -3,9 +3,12 @@
   "name": "Code Analysis Assistant",
   "version": "1.0",
   "description": "AI-powered code analysis and recommendations",
-  "permissions": ["activeTab", "storage","nativeMessaging"],
+  "permissions": ["activeTab", "storage", "nativeMessaging", "sidePanel"],
   "action": {
     "default_popup": "index.html"
+  },
+  "side_panel": {
+    "default_path": "sidebar.html"
   },
   "background": {
     "service_worker": "background.js"
