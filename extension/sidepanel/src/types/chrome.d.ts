@@ -4,6 +4,7 @@ declare namespace Chrome {
     lastError?: {
       message: string;
     };
+    connect: (options: { name: string }) => chrome.runtime.Port;
   }
 }
 

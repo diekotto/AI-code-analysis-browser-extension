@@ -22,6 +22,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
+    /* Custom configs */
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+
     /* Shadcn-ui */
     "baseUrl": ".",
     "paths": {

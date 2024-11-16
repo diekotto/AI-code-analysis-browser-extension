@@ -3,12 +3,13 @@
   "name": "Code Analysis Assistant",
   "version": "1.0",
   "description": "AI-powered code analysis and recommendations",
-  "permissions": ["activeTab", "storage", "nativeMessaging", "sidePanel", "tabs"],
+  "permissions": ["activeTab", "storage", "nativeMessaging", "sidePanel", "tabs", "scripting"],
   "side_panel": {
     "default_path": "sidepanel.html"
   },
   "background": {
     "service_worker": "background.js",
     "type": "module"
-  }
+  },
+  "host_permissions": ["*://*.github.com/*", "*://*.bitbucket.org/*", "*://*.gitlab.com/*"]
 }
