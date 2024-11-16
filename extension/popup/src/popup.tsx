@@ -10,7 +10,7 @@ export default function Popup() {
       // Obtener la ventana actual
       const [window] = await chrome.windows.getAll({
         windowTypes: ['normal'],
-        populate: false
+        populate: false,
       });
 
       if (!window?.id) {
@@ -20,7 +20,7 @@ export default function Popup() {
 
       // Abrir el panel directamente desde el popup
       await chrome.sidePanel.open({
-        windowId: window.id
+        windowId: window.id,
       });
       // chrome.runtime.sendMessage({ action: 'openSidebar' }, (response) => {
       //   // Verificar errores de runtime

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, X } from 'lucide-react';
+import { Send, Code } from 'lucide-react';
 
 interface Message {
   text: string;
@@ -25,10 +25,9 @@ export default function SidepanelChat() {
     }
   };
 
-  const handleClose = () => {
-    // Send message to content script to close sidebar
+  const handleAnalyzeCode = () => {
     // chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-    //   chrome.tabs.sendMessage(tabs[0].id, { action: 'closeSidebar' });
+    //   chrome.tabs.sendMessage(tabs[0].id, { action: 'analyzeCode' });
     // });
   };
 
@@ -41,9 +40,8 @@ export default function SidepanelChat() {
       <div className="flex-none w-full justify-between items-center p-4 bg-[rgb(31,41,55,0.5)]">
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-bold text-blue-400">AI Code Assistant</h2>
-          <Button variant="ghost" size="icon" onClick={handleClose} className="text-blue-400 hover:text-blue-300">
-            <X className="h-6 w-6" />
-            <span className="sr-only">Close sidebar</span>
+          <Button onClick={handleAnalyzeCode} className="w-min bg-blue-800 hover:bg-blue-700 text-white">
+            <Code className="mr-2 h-4 w-4" /> Analyze Code
           </Button>
         </div>
       </div>

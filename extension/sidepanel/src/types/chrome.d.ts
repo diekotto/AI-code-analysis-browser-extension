@@ -1,9 +1,6 @@
 declare namespace Chrome {
   export interface Runtime {
-    sendMessage<T = any, R = any>(
-      message: T,
-      callback?: (response: R) => void
-    ): void;
+    sendMessage<T = any, R = any>(message: T, callback?: (response: R) => void): void;
     lastError?: {
       message: string;
     };
@@ -12,5 +9,16 @@ declare namespace Chrome {
 
 declare var chrome: {
   runtime: Chrome.Runtime;
-  // Añade aquí más APIs de Chrome que necesites
+  tabs: {
+    query: (
+      queryInfo: { active: boolean; lastFocusedWindow: boolean },
+      callback: (tabs: chrome.tabs.Tab[]) => void
+    ) => void;
+  };
+  sidePanel: {
+    open: (options: { tabId?: number; windowId?: number }) => Promise<void>;
+  };
+  windows: {
+    getAll: (options: { windowTypes: string[]; populate: boolean }) => Promise<chrome.windows.Window[]>;
+  };
 };
