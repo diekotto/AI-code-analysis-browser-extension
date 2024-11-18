@@ -2,6 +2,8 @@
 
 Una extensión de Chrome que utiliza IA para analizar código y proporcionar recomendaciones inteligentes en tiempo real.
 
+![Preview](preview.png)
+
 ## 🌟 Características
 
 - 🔍 Análisis automático de código en archivos
