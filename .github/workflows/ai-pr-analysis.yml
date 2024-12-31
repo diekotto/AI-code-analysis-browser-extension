@@ -20,7 +20,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
           # Optional inputs with defaults
-          file_patterns: "**/*.{js}" # Files to analyze
+          file_patterns: "**/*.js" # Files to analyze
           exclude_patterns: "**/node_modules/**,**/dist/**" # Files to exclude
           max_files: "10" # Maximum files to analyze
           comment_threshold: "0.6" # Minimum confidence for comments
