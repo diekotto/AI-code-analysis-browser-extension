@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: AI Pull Request Analysis
-        uses: diekotto/ai-pull-review@v0.1.0
+        uses: diekotto/ai-pull-review@v0.1.1
         with:
           # Required inputs
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
