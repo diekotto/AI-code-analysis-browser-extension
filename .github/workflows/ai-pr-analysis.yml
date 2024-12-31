@@ -1,0 +1,28 @@
+name: PR Analysis
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: AI Pull Request Analysis
+        uses: diekotto/ai-pull-review@v0.1.0
+        with:
+          # Required inputs
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Optional inputs with defaults
+          file_patterns: "**/*.{js}" # Files to analyze
+          exclude_patterns: "**/node_modules/**,**/dist/**" # Files to exclude
+          max_files: "10" # Maximum files to analyze
+          comment_threshold: "0.6" # Minimum confidence for comments
+          analysis_level: "basic" # basic, standard, or deep
+          model: "claude-3-5-haiku-20241022" # Claude model to use
